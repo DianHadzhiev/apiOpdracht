@@ -1,0 +1,6 @@
+@week4_HostAddress = http://localhost:5096
+
+GET {{week4_HostAddress}}/Movie/
+Accept: application/json
+
+###
