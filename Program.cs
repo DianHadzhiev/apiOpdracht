@@ -5,16 +5,20 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Movie API", Version = "v1" });
 });
-builder.Services.AddControllers().AddJsonOptions(options => {options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;});
 
+// Register MovieContext
+builder.Services.AddDbContext<MovieContext>(options =>
+    options.UseSqlite("Data source=database.db"));
+
+builder.Services.AddControllers().AddJsonOptions(options => {
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 
 var app = builder.Build();
 
@@ -22,20 +26,28 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Movie API"));
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Movie API v1"));
 }
 
+app.UseHttpsRedirection();
 app.UseRouting();
 app.MapControllers();
 app.UseHttpsRedirection();
 
-using (var scope = app.Services.CreateScope()) {
+// Apply migrations at startup
+using (var scope = app.Services.CreateScope())
+{
     var services = scope.ServiceProvider;
-    try{
+    try
+    {
         var context = services.GetRequiredService<MovieContext>();
         context.Database.Migrate();
-    }catch (Exception ex) {
+    }
+    catch (Exception ex)
+    {
         Console.WriteLine(ex);
     }
 }
+
 app.Run();
+

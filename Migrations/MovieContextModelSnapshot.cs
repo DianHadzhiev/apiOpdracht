@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace week4.Migrations
 {
-    [DbContext(typeof(MyDB))]
-    partial class MyDBModelSnapshot : ModelSnapshot
+    [DbContext(typeof(MovieContext))]
+    partial class MovieContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -28,7 +28,7 @@ namespace week4.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Directors");
+                    b.ToTable("Director");
                 });
 
             modelBuilder.Entity("Movie", b =>

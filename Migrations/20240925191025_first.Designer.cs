@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace week4.Migrations
 {
-    [DbContext(typeof(MyDB))]
-    [Migration("20240925123854_movie")]
-    partial class movie
+    [DbContext(typeof(MovieContext))]
+    [Migration("20240925191025_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,7 +31,7 @@ namespace week4.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Directors");
+                    b.ToTable("Director");
                 });
 
             modelBuilder.Entity("Movie", b =>

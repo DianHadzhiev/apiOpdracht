@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace week4.Migrations
 {
     /// <inheritdoc />
-    public partial class movie : Migration
+    public partial class first : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Directors",
+                name: "Director",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -21,7 +21,7 @@ namespace week4.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Directors", x => x.Id);
+                    table.PrimaryKey("PK_Director", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -54,9 +54,9 @@ namespace week4.Migrations
                 {
                     table.PrimaryKey("PK_Movies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Movies_Directors_DirectorId",
+                        name: "FK_Movies_Director_DirectorId",
                         column: x => x.DirectorId,
-                        principalTable: "Directors",
+                        principalTable: "Director",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -77,7 +77,7 @@ namespace week4.Migrations
                 name: "Reviews");
 
             migrationBuilder.DropTable(
-                name: "Directors");
+                name: "Director");
         }
     }
 }

@@ -34,7 +34,7 @@ public class MovieController:ControllerBase
             await myDB.SaveChangesAsync();
         }
         catch(DbUpdateConcurrencyException) {
-            if (!MovieExists(id)) { return NotFound();
+            if (!await MovieExists(id)) { return NotFound();
             } else throw;
         }
         return NoContent();
@@ -57,10 +57,9 @@ public class MovieController:ControllerBase
         return NoContent();
     }
 
-    public Boolean MovieExists(int id) {
-        
-        if (GetMovie(id) != null) {
-            return true;
-        } else return false;
-    }
+    private async Task<bool> MovieExists(int id)
+{
+    return await myDB.Movies.AnyAsync(m => m.Id == id);
+}
+
 }
