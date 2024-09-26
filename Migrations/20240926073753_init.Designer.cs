@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace week4.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20240925191025_first")]
-    partial class first
+    [Migration("20240926073753_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

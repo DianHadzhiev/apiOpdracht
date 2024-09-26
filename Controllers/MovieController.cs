@@ -11,19 +11,29 @@ public class MovieController:ControllerBase
         this.myDB = myDB;
     }
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Movie>>> GetMovies() {
-        return await myDB.Movies.ToListAsync();
+    public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies() {
+        var movies = myDB.Movies.ToList();
+
+        if (movies == null) {
+            return NotFound();
+        }
+
+        List<MovieDto> movies1 = new List<MovieDto>();
+        foreach (var movie in movies) {
+            movies1.Add(new MovieDto(movie.Title, movie.Year,movie.DirectorName));
+        }
+        return movies1;
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Movie>>GetMovie(int Id) {
+    public async Task<ActionResult<MovieDto>>GetMovie(int Id) {
         var movie = await myDB.Movies.FindAsync(Id);
 
         if (movie == null) {
             return NotFound();
         }
-
-        return movie;
+        var movieDto = new MovieDto(movie.Title, movie.Year, movie.DirectorName);
+        return movieDto;
     }
 
     [HttpPut("{id}")]

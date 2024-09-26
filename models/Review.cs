@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class Review {
     [Key]
@@ -10,6 +11,8 @@ public class Review {
     [StringLength(50)]
     public string UserName{get; set;}
     public DateTime CreatedAt{get; set;}
-
-    Movie movie;
+    
+    [ForeignKey(nameof(movie.Id))]
+    public int MovieId {get; set;}
+    Movie movie {get; set;}
 }

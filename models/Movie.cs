@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.VisualBasic;
 
 public class Movie {
@@ -10,6 +11,15 @@ public class Movie {
     public int Year{get; set;}
 
     public List<Review>? Reviews = new List<Review>();
+    [ForeignKey(nameof(Director))]
+    public int DirectorId {get;set;}
     public Director Director{get; set;}
+
+    private Movie(){}
+    public Movie(string title, int year, Director Director){
+        this.Title = title;
+        this.Year = year;
+        this.Director = Director;
+    }
 
 }
