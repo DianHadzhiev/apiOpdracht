@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Register MovieContext
-builder.Services.AddDbContext<MovieContext>(options =>
+builder.Services.AddDbContext<Context>(options =>
     options.UseSqlite("Data source=database.db"));
 
 builder.Services.AddControllers().AddJsonOptions(options => {
@@ -40,7 +40,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     try
     {
-        var context = services.GetRequiredService<MovieContext>();
+        var context = services.GetRequiredService<Context>();
         context.Database.Migrate();
     }
     catch (Exception ex)

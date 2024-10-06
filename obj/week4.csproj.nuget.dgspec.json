@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/lol/projects/week4vier/week4.csproj": {}
+    "/home/dianoh/projects/apiOpdracht/week4.csproj": {}
   },
   "projects": {
-    "/home/lol/projects/week4vier/week4.csproj": {
+    "/home/dianoh/projects/apiOpdracht/week4.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/lol/projects/week4vier/week4.csproj",
+        "projectUniqueName": "/home/dianoh/projects/apiOpdracht/week4.csproj",
         "projectName": "week4",
-        "projectPath": "/home/lol/projects/week4vier/week4.csproj",
-        "packagesPath": "/home/lol/.nuget/packages/",
-        "outputPath": "/home/lol/projects/week4vier/obj/",
+        "projectPath": "/home/dianoh/projects/apiOpdracht/week4.csproj",
+        "packagesPath": "/home/dianoh/.nuget/packages/",
+        "outputPath": "/home/dianoh/projects/apiOpdracht/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/lol/.nuget/NuGet/NuGet.Config"
+          "/home/dianoh/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"

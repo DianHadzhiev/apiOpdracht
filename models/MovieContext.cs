@@ -1,14 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 
-public class MovieContext : DbContext
+public class Context : DbContext
 {
-    public MovieContext(DbContextOptions<MovieContext> options)
+    public Context(DbContextOptions<Context> options)
         : base(options)
     {
     }
     public DbSet<Movie> Movies { get; set; }
     public DbSet<Review> Reviews { get; set; }
-    public Director Director { get; set; }
+    public DbSet<Director> Directors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -1,28 +1,23 @@
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 [Route("api/[controller]")]
 [ApiController]
 public class MovieController:ControllerBase
 {
-    public MovieContext myDB;
-    public MovieController(MovieContext myDB) {
+    public Context myDB;
+    public MovieController(Context myDB) {
         this.myDB = myDB;
     }
     [HttpGet]
     public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies() {
-        var movies = myDB.Movies.ToList();
+        var movies = await myDB.Movies.Select(mov => new MovieDto(mov.Title, mov.Year, mov.Director.Name)).ToListAsync();
 
         if (movies == null) {
             return NotFound();
-        }
+        } else return Ok(movies);
 
-        List<MovieDto> movies1 = new List<MovieDto>();
-        foreach (var movie in movies) {
-            movies1.Add(new MovieDto(movie.Title, movie.Year,movie.DirectorName));
-        }
-        return movies1;
     }
 
     [HttpGet("{id}")]
@@ -32,7 +27,7 @@ public class MovieController:ControllerBase
         if (movie == null) {
             return NotFound();
         }
-        var movieDto = new MovieDto(movie.Title, movie.Year, movie.DirectorName);
+        var movieDto = new MovieDto(movie.Title, movie.Year, movie.Director.Name);
         return movieDto;
     }
 
@@ -51,15 +46,26 @@ public class MovieController:ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Movie>>PostMovie(Movie movie) {
+    public async Task<ActionResult<Movie>>PostMovie(MovieDto movie1) {
+        
+        var director = await myDB.Directors.FirstOrDefaultAsync(d => d.Name == movie1.DirectorName);
+
+        var movie = new Movie{
+            Title = movie1.Title,
+            Year = movie1.Year,
+            Director = director
+        };
+        
+        
         myDB.Add(movie);
         await myDB.SaveChangesAsync();
-        return CreatedAtAction("GetMovie", new {Id = movie.Id}, movie);
+        return CreatedAtAction("GetMovie", new{Id = movie.Id}, movie);
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteMovie(int Id) {
-        var movie = await myDB.Movies.FindAsync(Id);
+    public async Task<IActionResult> DeleteMovie(string movieName) {
+        var movie = await myDB.Movies.FirstOrDefaultAsync(m => m.Title == movieName);
+
         if (movie == null) return NotFound();
         myDB.Movies.Remove(movie);
         await myDB.SaveChangesAsync();

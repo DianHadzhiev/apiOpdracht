@@ -4,6 +4,7 @@ using Microsoft.VisualBasic;
 
 public class Movie {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id{get; set;}
     [StringLength(100)]
     public string? Title{get; set;}
@@ -15,7 +16,7 @@ public class Movie {
     public int DirectorId {get;set;}
     public Director Director{get; set;}
 
-    private Movie(){}
+    public Movie(){}
     public Movie(string title, int year, Director Director){
         this.Title = title;
         this.Year = year;
