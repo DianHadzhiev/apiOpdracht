@@ -34,12 +34,14 @@ public class ReviewController :ControllerBase {
 
     [HttpPost]
     public async Task<ActionResult<Review>>PostReview(ReviewDto review) {
+        
+        var user = await myContext.Users.FirstOrDefaultAsync(u => u.UserName == review.UserName);
         var review1 = new Review{
             Description = review.Description,
             Rating = review.Rating,
             UserName = review.UserName,
-            CreatedAt = review.CreatedAt
-            
+            CreatedAt = review.CreatedAt,
+            UserId = user.Id
         };
 
 

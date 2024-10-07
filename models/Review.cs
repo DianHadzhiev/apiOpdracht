@@ -14,5 +14,12 @@ public class Review {
     
     [ForeignKey(nameof(movie.Id))]
     public int MovieId {get; set;}
-    Movie movie {get; set;}
+    public Movie movie {get; set;}
+
+    public User user {get; set;}
+
+   [ForeignKey(nameof(User.Id))] 
+   public string UserId{get;set;}
+
+    
 }
