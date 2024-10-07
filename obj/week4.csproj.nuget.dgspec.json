@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/lol/projects/apiOpdracht/week4.csproj": {}
+    "/home/dianoh/projects/ApiOpdracht/apiOpdracht/week4.csproj": {}
   },
   "projects": {
-    "/home/lol/projects/apiOpdracht/week4.csproj": {
+    "/home/dianoh/projects/ApiOpdracht/apiOpdracht/week4.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/lol/projects/apiOpdracht/week4.csproj",
+        "projectUniqueName": "/home/dianoh/projects/ApiOpdracht/apiOpdracht/week4.csproj",
         "projectName": "week4",
-        "projectPath": "/home/lol/projects/apiOpdracht/week4.csproj",
-        "packagesPath": "/home/lol/.nuget/packages/",
-        "outputPath": "/home/lol/projects/apiOpdracht/obj/",
+        "projectPath": "/home/dianoh/projects/ApiOpdracht/apiOpdracht/week4.csproj",
+        "packagesPath": "/home/dianoh/.nuget/packages/",
+        "outputPath": "/home/dianoh/projects/ApiOpdracht/apiOpdracht/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/lol/.nuget/NuGet/NuGet.Config"
+          "/home/dianoh/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -38,6 +38,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.8, )"

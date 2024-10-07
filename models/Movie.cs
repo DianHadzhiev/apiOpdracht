@@ -16,9 +16,10 @@ public class Movie {
     public int DirectorId {get;set;}
     public Director Director{get; set;}
 
-    public Movie(){}
-    public Movie(string title, int year, Director Director){
-        this.Title = title;
+    public Movie() {}
+
+    public Movie(string Title, int year, Director Director){
+        this.Title = Title;
         this.Year = year;
         this.Director = Director;
     }

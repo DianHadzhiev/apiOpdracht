@@ -26,14 +26,38 @@ public class MovieController:ControllerBase
 
         if (movie == null) {
             return NotFound();
+        } else if(movie != null) {
+            return new MovieDto(movie.Title, movie.Year, movie.Director.Name);
         }
-        var movieDto = new MovieDto(movie.Title, movie.Year, movie.Director.Name);
-        return movieDto;
+        return NoContent();
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult>PutMovie(int id, Movie movie) {
-        if (id != movie.Id) return BadRequest();
+    public async Task<IActionResult>PutMovie(int id, MovieDto moviedto) {
+        var movie = await myDB.Movies.Include(m => m.Director)
+                               .Include(m => m.Reviews)
+                               .FirstOrDefaultAsync(m=> m.Id == id);
+
+        if (movie == null){
+            return NotFound();
+        }  
+
+        var Director = await myDB.Directors.FirstOrDefaultAsync(d => d.Name == moviedto.DirectorName);
+
+        if (Director == null) {
+            return NotFound();
+        }
+
+        if (moviedto.Reviews != null)
+        {
+            movie.Reviews = moviedto.Reviews;
+        }
+
+        movie.Title = moviedto.Title;
+        movie.Director = Director;
+        movie.Year = moviedto.Year;
+
+
         myDB.Entry(movie).State = EntityState.Modified;
         try {
             await myDB.SaveChangesAsync();
@@ -49,17 +73,15 @@ public class MovieController:ControllerBase
     public async Task<ActionResult<Movie>>PostMovie(MovieDto movie1) {
         
         var director = await myDB.Directors.FirstOrDefaultAsync(d => d.Name == movie1.DirectorName);
-
-        var movie = new Movie{
-            Title = movie1.Title,
-            Year = movie1.Year,
-            Director = director
-        };
-        
-        
+        String title = movie1.Title;
+        if (director != null) {
+        Movie movie = new Movie(title, movie1.Year, director );
         myDB.Add(movie);
         await myDB.SaveChangesAsync();
         return CreatedAtAction("GetMovie", new{Id = movie.Id}, movie);
+        }
+
+        return NoContent();
     }
 
     [HttpDelete]

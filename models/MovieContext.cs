@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-public class Context : DbContext
+
+public class Context : IdentityDbContext<User>
 {
     public Context(DbContextOptions<Context> options)
         : base(options)
